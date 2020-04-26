@@ -1,7 +1,7 @@
 var MongoClient = require("mongodb").MongoClient;
 const auth = require("../middleware/auth");
 const { ObjectId } = require("mongodb");
-const { mongodb } = require("../config/default.json");
+const { mongodb } = require("../config");
 var express = require("express"),
   router = express.Router();
 
@@ -23,6 +23,8 @@ router.get("/getReviews", function (req, res) {
 
 router.get("/insertReviews", function (req, res) {
   // Connect to the db
+  mongodb = process.env.smartConnect_db;
+  console.log(mongodb);
   MongoClient.connect(mongodb, function (err, client) {
     var db = client.db("SmartConnectDB");
     db.collection("Reviews", function (err, collection) {

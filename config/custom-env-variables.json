@@ -1,0 +1,1 @@
+{ "jwtPrivateKey": "env_jwtPrivateKey", "mongodb": "smartConnect_db" }

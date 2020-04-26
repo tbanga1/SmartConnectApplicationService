@@ -5,6 +5,8 @@ const { User, validate } = require("../models/user");
 const express = require("express");
 const router = express.Router();
 var MongoClient = require("mongodb").MongoClient;
+import { mongodb } from "../config/default.json";
+
 //registration
 router.post("/", async (req, res) => {
   console.log("inside register service");
@@ -17,10 +19,10 @@ router.post("/", async (req, res) => {
   user.password = await bcrypt.hash(user.password, salt);
   //await user.save();
   console.log(" user.password ", user.password);
-  MongoClient.connect("mongodb://localhost:27017", function(err, client) {
+  MongoClient.connect(mongodb, function (err, client) {
     var db = client.db("mydb");
     var collectionObj = db.collection("Users");
-    collectionObj.findOne({ email: user.email }, function(err, userObj) {
+    collectionObj.findOne({ email: user.email }, function (err, userObj) {
       if (err) throw err;
       if (userObj) {
         return res.status(400).send("User already registered.");
@@ -28,7 +30,7 @@ router.post("/", async (req, res) => {
         collectionObj.insertOne({
           name: user.name,
           password: user.password,
-          email: user.email
+          email: user.email,
         });
         const token = user.generateAuthToken();
         res
@@ -44,10 +46,10 @@ router.post("/auth", async (req, res) => {
   console.log("inside login service");
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
-  MongoClient.connect("mongodb://localhost:27017", async function(err, client) {
+  MongoClient.connect(mongodb, async function (err, client) {
     var db = client.db("mydb");
     var collectionObj = db.collection("Users");
-    collectionObj.findOne({ email: req.body.email }, async function(
+    collectionObj.findOne({ email: req.body.email }, async function (
       err,
       userObj
     ) {
@@ -69,7 +71,7 @@ router.post("/auth", async (req, res) => {
         const tempUserObj = {
           name: userObj.name,
           email: userObj.email,
-          _id: userObj._id
+          _id: userObj._id,
         };
         let newUser = new User(tempUserObj);
         const token = newUser.generateAuthToken();
@@ -79,15 +81,8 @@ router.post("/auth", async (req, res) => {
   });
   function validate(req) {
     const schema = {
-      email: Joi.string()
-        .min(5)
-        .max(255)
-        .required()
-        .email(),
-      password: Joi.string()
-        .min(5)
-        .max(255)
-        .required()
+      email: Joi.string().min(5).max(255).required().email(),
+      password: Joi.string().min(5).max(255).required(),
     };
     return Joi.validate(req, schema);
   }
@@ -105,10 +100,10 @@ router.post("/", async (req, res) => {
   user.password = await bcrypt.hash(user.password, salt);
   //await user.save();
   console.log(" user.password ", user.password);
-  MongoClient.connect("mongodb://localhost:27017", function(err, client) {
+  MongoClient.connect(mongodb, function (err, client) {
     var db = client.db("mydb");
     var collectionObj = db.collection("Users");
-    collectionObj.findOne({ email: user.email }, function(err, userObj) {
+    collectionObj.findOne({ email: user.email }, function (err, userObj) {
       if (err) throw err;
       if (userObj) {
         return res.status(400).send("User already registered.");
@@ -116,7 +111,7 @@ router.post("/", async (req, res) => {
         collectionObj.insertOne({
           name: user.name,
           password: user.password,
-          email: user.email
+          email: user.email,
         });
         const token = user.generateAuthToken();
         res

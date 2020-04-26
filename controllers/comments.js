@@ -1,13 +1,14 @@
 var MongoClient = require("mongodb").MongoClient;
 const auth = require("../middleware/auth");
 const { ObjectId } = require("mongodb");
+import { mongodb } from "../config/default.json";
 var express = require("express"),
   router = express.Router();
 
 //router.get("/getReviews", [auth], function(req, res) {
 router.get("/getReviews", function (req, res) {
   // Connect to the db
-  MongoClient.connect("mongodb://localhost:27017", function (err, client) {
+  MongoClient.connect(mongodb, function (err, client) {
     var db = client.db("mydb");
     db.collection("Reviews", function (err, collection) {
       collection.find().toArray(function (err, items) {
@@ -22,7 +23,7 @@ router.get("/getReviews", function (req, res) {
 
 router.get("/insertReviews", function (req, res) {
   // Connect to the db
-  MongoClient.connect("mongodb://localhost:27017", function (err, client) {
+  MongoClient.connect(mongodb, function (err, client) {
     var db = client.db("mydb");
     db.collection("Reviews", function (err, collection) {
       collection.insert({
@@ -50,7 +51,7 @@ router.get("/insertReviews", function (req, res) {
 
 router.put("/saveServiceRequest", [auth], function (req, res) {
   console.log("storing request", req.body);
-  MongoClient.connect("mongodb://localhost:27017", function (err, client) {
+  MongoClient.connect(mongodb, function (err, client) {
     var db = client.db("mydb");
     db.collection("ServiceRequests", function (err, collection) {
       collection.insertOne({
@@ -69,7 +70,7 @@ router.put("/saveServiceRequest", [auth], function (req, res) {
 
 router.put("/editServiceRequest", [auth], function (req, res) {
   console.log("storing request", req.body);
-  MongoClient.connect("mongodb://localhost:27017", function (err, client) {
+  MongoClient.connect(mongodb, function (err, client) {
     var db = client.db("mydb");
     db.collection("ServiceRequests", function (err, collection) {
       collection.update(
@@ -92,7 +93,7 @@ router.put("/editServiceRequest", [auth], function (req, res) {
 
 router.get("/schedule/history", [auth], function (req, res) {
   console.log("req.body._userId:: fetched from middleware/auth ", req.user._id);
-  MongoClient.connect("mongodb://localhost:27017", function (err, client) {
+  MongoClient.connect(mongodb, function (err, client) {
     var db = client.db("mydb");
     var collectionObj = db.collection("ServiceRequests");
     console.log("collectionObj ", collectionObj);
@@ -115,7 +116,7 @@ router.delete("/schedule/delete/:_id", [auth], function (req, res) {
     "req.body._userId:: fetched from middleware/auth ",
     req.params._id
   );
-  MongoClient.connect("mongodb://localhost:27017", function (err, client) {
+  MongoClient.connect(mongodb, function (err, client) {
     var db = client.db("mydb");
     db.collection("ServiceRequests", function (err, collection) {
       collection.remove({ _id: ObjectId(req.params._id) });

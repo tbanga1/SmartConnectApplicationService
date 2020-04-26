@@ -1,7 +1,7 @@
 var MongoClient = require("mongodb").MongoClient;
 const auth = require("../middleware/auth");
 const { ObjectId } = require("mongodb");
-import { mongodb } from "../config/default.json";
+const { mongodb } = require("../config/default.json");
 var express = require("express"),
   router = express.Router();
 

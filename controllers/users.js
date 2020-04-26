@@ -5,7 +5,7 @@ const { User, validate } = require("../models/user");
 const express = require("express");
 const router = express.Router();
 var MongoClient = require("mongodb").MongoClient;
-import { mongodb } from "../config/default.json";
+const { mongodb } = require("../config/default.json");
 
 //registration
 router.post("/", async (req, res) => {

@@ -24,7 +24,7 @@ router.get("/getReviews", function (req, res) {
 router.get("/insertReviews", function (req, res) {
   // Connect to the db
   MongoClient.connect(mongodb, function (err, client) {
-    var db = client.db("mydb");
+    var db = client.db("SmartConnectDB");
     db.collection("Reviews", function (err, collection) {
       collection.insert({
         id: 1,

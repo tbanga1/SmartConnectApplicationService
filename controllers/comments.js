@@ -30,6 +30,18 @@ router.get("/insertReviews", function (req, res) {
 
   console.log("2", mongodb);
   //console.log("3", mongodb2);
+
+  // const uri =
+  // "mongodb+srv://tanu:<password>@smartconnectdb-pjlax.mongodb.net/test?retryWrites=true&w=majority";
+  const client = new MongoClient(mongodb, { useNewUrlParser: true });
+  client.connect((err) => {
+    const collection = client.db("test").collection("devices");
+    // perform actions on the collection object
+
+    console.log("333333333333333333333333333333", collection);
+    client.close();
+  });
+
   MongoClient.connect(mongodb, function (err, client) {
     var db = client.db("test");
     console.log("3", db);

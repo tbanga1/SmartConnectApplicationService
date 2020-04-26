@@ -35,16 +35,9 @@ router.get("/insertReviews", function (req, res) {
   // "mongodb+srv://tanu:<password>@smartconnectdb-pjlax.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(mongodb, { useNewUrlParser: true });
   client.connect((err) => {
-    const collection = client.db("test").collection("devices");
-    // perform actions on the collection object
-
+    const collection = client.db("test");
     console.log("333333333333333333333333333333", collection);
-    client.close();
-  });
 
-  MongoClient.connect(mongodb, function (err, client) {
-    var db = client.db("test");
-    console.log("3", db);
     db.collection("Reviews", function (err, collection) {
       collection.insert({
         id: 1,
@@ -66,6 +59,10 @@ router.get("/insertReviews", function (req, res) {
       });
       res.send("items inserted successfully");
     });
+    // perform actions on the collection object
+
+    console.log("1111111111111111111111111", collection);
+    client.close();
   });
 });
 

@@ -35,30 +35,29 @@ router.get("/insertReviews", function (req, res) {
   // "mongodb+srv://tanu:<password>@smartconnectdb-pjlax.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(mongodb, { useNewUrlParser: true });
   client.connect((err) => {
-    const collection = client.db("test");
-    console.log("333333333333333333333333333333", collection);
-
-    db.collection("Reviews", function (err, collection) {
-      collection.insert({
-        id: 1,
-        userInfo: "John Doe - Baltimore, MD",
-        comment:
-          "Services from Smart Connect are amazing and very professional. Best part is that they came, they repaired and they left without me getting any nusciance. Neat and clean. Highly Recommended",
+    const collection = client
+      .db("test")
+      .collection("Reviews", function (err, collection) {
+        collection.insert({
+          id: 1,
+          userInfo: "John Doe - Baltimore, MD",
+          comment:
+            "Services from Smart Connect are amazing and very professional. Best part is that they came, they repaired and they left without me getting any nusciance. Neat and clean. Highly Recommended",
+        });
+        collection.insert({
+          id: 2,
+          userInfo: "Anna Aston - Columbia, MD",
+          comment:
+            "Tech was on time on a Saturday morning. He diagnosed the problem quickly, ordered parts that day and was back on Monday afternoon to install the new parts. Quick and efficient service. Thank you.",
+        });
+        collection.insert({
+          id: 3,
+          userInfo: "Maria Kate - Laurel, MD",
+          comment:
+            "Cal was on time, professional and efficient with his time. He offered an appropriate level of explanation related to the repair effort and was conscientious about cleaning up a small amount of water released during repair. Great job.",
+        });
+        res.send("items inserted successfully");
       });
-      collection.insert({
-        id: 2,
-        userInfo: "Anna Aston - Columbia, MD",
-        comment:
-          "Tech was on time on a Saturday morning. He diagnosed the problem quickly, ordered parts that day and was back on Monday afternoon to install the new parts. Quick and efficient service. Thank you.",
-      });
-      collection.insert({
-        id: 3,
-        userInfo: "Maria Kate - Laurel, MD",
-        comment:
-          "Cal was on time, professional and efficient with his time. He offered an appropriate level of explanation related to the repair effort and was conscientious about cleaning up a small amount of water released during repair. Great job.",
-      });
-      res.send("items inserted successfully");
-    });
     // perform actions on the collection object
 
     console.log("1111111111111111111111111", collection);

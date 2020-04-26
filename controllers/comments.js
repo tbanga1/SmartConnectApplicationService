@@ -28,7 +28,7 @@ router.get("/insertReviews", function (req, res) {
 
   //let mongodb2 = process.env.mongodb;
 
-  console.log("2", mongodb1);
+  console.log("2", mongodb);
   //console.log("3", mongodb2);
   MongoClient.connect(mongodb, function (err, client) {
     var db = client.db("SmartConnectDB");

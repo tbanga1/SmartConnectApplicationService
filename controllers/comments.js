@@ -1,7 +1,7 @@
 var MongoClient = require("mongodb").MongoClient;
 const auth = require("../middleware/auth");
 const { ObjectId } = require("mongodb");
-const { mongodb } = require("../config");
+const { mongodb } = require("../config/custom-environment-variables.json");
 var express = require("express"),
   router = express.Router();
 
@@ -23,8 +23,12 @@ router.get("/getReviews", function (req, res) {
 
 router.get("/insertReviews", function (req, res) {
   // Connect to the db
-  mongodb = process.env.smartConnect_db;
-  console.log(mongodb);
+  console.log("1", mongodb);
+  let mongodb1 = process.env.smartConnect_db;
+  let mongodb2 = process.env.mongodb;
+
+  console.log("2", mongodb1);
+  console.log("3", mongodb2);
   MongoClient.connect(mongodb, function (err, client) {
     var db = client.db("SmartConnectDB");
     db.collection("Reviews", function (err, collection) {

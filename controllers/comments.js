@@ -9,15 +9,17 @@ var express = require("express"),
 //router.get("/getReviews", [auth], function(req, res) {
 router.get("/getReviews", function (req, res) {
   // Connect to the db
-  MongoClient.connect(mongodb, function (err, client) {
-    var db = client.db("mydb");
-    db.collection("Reviews", function (err, collection) {
-      collection.find().toArray(function (err, items) {
-        if (err) throw err;
-        console.log("result is an array :: ", typeof items);
-        res.send(items);
+  const client = new MongoClient(mongodb, { useNewUrlParser: true });
+  client.connect((err) => {
+    const collection = client
+      .db("test")
+      .collection("Reviews", function (err, collection) {
+        collection.find().toArray(function (err, items) {
+          if (err) throw err;
+          console.log("result is an array :: ", typeof items);
+          res.send(items);
+        });
       });
-    });
     client.close();
   });
 });

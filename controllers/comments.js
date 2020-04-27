@@ -41,7 +41,7 @@ router.get("/insertReviews", function (req, res) {
     const collection = client
       .db("SC")
       .collection("Reviews", function (err, collection) {
-        collection.insert({
+        collection.insertOne({
           id: 1,
           userInfo: "John Doe - Baltimore, MD",
           comment:

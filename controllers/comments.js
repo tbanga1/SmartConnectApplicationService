@@ -44,6 +44,12 @@ router.get("/insertReviews", function (req, res) {
       .db("SC")
       .collection("Reviews", function (err, collection) {
         console.log("collection", collection);
+        collection.insertOne({
+          id: 1,
+          userInfo: "John Doe - Baltimore, MD",
+          comment:
+            "Services from Smart Connect are amazing and very professional. Best part is that they came, they repaired and they left without me getting any nusciance. Neat and clean. Highly Recommended",
+        });
       });
   });
 

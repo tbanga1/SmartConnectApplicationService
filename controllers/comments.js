@@ -30,24 +30,9 @@ router.get("/getReviews", function (req, res) {
 });
 
 router.get("/insertReviews", function (req, res) {
-  const MongoClient = require("mongodb").MongoClient;
-  let client = new MongoClient(mongodb, { useNewUrlParser: true });
-  client.connect((err) => {
-    const collection = client.db("SC").collection("Reviews");
-    console.log("collectioncollectioncollectioncollection", collection);
-    client.close();
-  });
-
-  client = new MongoClient(
+  const client = new MongoClient(
     mongodb,
-    {
-      server: {
-        // sets how many times to try reconnecting
-        reconnectTries: Number.MAX_VALUE,
-        // sets the delay between every retry (milliseconds)
-        reconnectInterval: 1000,
-      },
-    },
+
     { useNewUrlParser: true }
   );
   console.log("clientclientclientclient", client);
@@ -62,18 +47,7 @@ router.get("/insertReviews", function (req, res) {
           comment:
             "Services from Smart Connect are amazing and very professional. Best part is that they came, they repaired and they left without me getting any nusciance. Neat and clean. Highly Recommended",
         });
-        collection.insert({
-          id: 2,
-          userInfo: "Anna Aston - Columbia, MD",
-          comment:
-            "Tech was on time on a Saturday morning. He diagnosed the problem quickly, ordered parts that day and was back on Monday afternoon to install the new parts. Quick and efficient service. Thank you.",
-        });
-        collection.insert({
-          id: 3,
-          userInfo: "Maria Kate - Laurel, MD",
-          comment:
-            "Cal was on time, professional and efficient with his time. He offered an appropriate level of explanation related to the repair effort and was conscientious about cleaning up a small amount of water released during repair. Great job.",
-        });
+
         res.send("items inserted successfully");
       });
     // perform actions on the collection object

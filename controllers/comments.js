@@ -27,7 +27,18 @@ router.get("/getReviews", function (req, res) {
 });
 
 router.get("/insertReviews", function (req, res) {
-  const client = new MongoClient(mongodb, { useNewUrlParser: true });
+  const client = new MongoClient(
+    mongodb,
+    {
+      server: {
+        // sets how many times to try reconnecting
+        reconnectTries: Number.MAX_VALUE,
+        // sets the delay between every retry (milliseconds)
+        reconnectInterval: 1000,
+      },
+    },
+    { useNewUrlParser: true }
+  );
   console.log("clientclientclientclient", client);
 
   client.connect((err) => {

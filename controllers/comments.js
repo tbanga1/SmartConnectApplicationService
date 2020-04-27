@@ -11,11 +11,14 @@ router.get("/getReviews", function (req, res) {
   // Connect to the db
 
   const client = new MongoClient(mongodb);
-  console.log("clientclientclientclient", client);
   client.connect((err) => {
+    console.log("clientclientclientclient", client);
+
     const db = client
       .db("SC")
       .collection("Reviews", function (err, collection) {
+        console.log("insideeeeeeeee", client);
+
         collection.find().toArray(function (err, items) {
           if (err) throw err;
           console.log("result is an array :: ", typeof items);

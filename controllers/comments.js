@@ -14,7 +14,7 @@ router.get("/getReviews", function (req, res) {
   console.log("clientclientclientclient", client);
   client.connect((err) => {
     const db = client
-      .db("test")
+      .db("SC")
       .collection("Reviews", function (err, collection) {
         collection.find().toArray(function (err, items) {
           if (err) throw err;
@@ -30,7 +30,7 @@ router.get("/insertReviews", function (req, res) {
   const client = new MongoClient(mongodb, { useNewUrlParser: true });
   client.connect((err) => {
     const collection = client
-      .db("test")
+      .db("SC")
       .collection("Reviews", function (err, collection) {
         collection.insert({
           id: 1,

@@ -35,9 +35,13 @@ router.get("/insertReviews", function (req, res) {
 
     { useNewUrlParser: true }
   );
-  console.log("clientclientclientclient", client);
+  //console.log("clientclientclientclient", client);
 
   client.connect((err) => {
+    console.log("connected", client);
+  });
+
+  /* client.connect((err) => {
     const collection = client
       .db("SC")
       .collection("Reviews", function (err, collection) {
@@ -54,7 +58,7 @@ router.get("/insertReviews", function (req, res) {
 
     console.log("1111111111111111111111111", collection);
     client.close();
-  });
+  });*/
 });
 
 router.put("/saveServiceRequest", [auth], function (req, res) {

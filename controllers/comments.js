@@ -28,14 +28,14 @@ router.get("/getReviews", function (req, res) {
 
 router.get("/insertReviews", function (req, res) {
   const MongoClient = require("mongodb").MongoClient;
-  const client = new MongoClient(mongodb, { useNewUrlParser: true });
+  let client = new MongoClient(mongodb, { useNewUrlParser: true });
   client.connect((err) => {
     const collection = client.db("SC").collection("Reviews");
     console.log("collectioncollectioncollectioncollection", collection);
     client.close();
   });
 
-  const client = new MongoClient(
+  client = new MongoClient(
     mongodb,
     {
       server: {

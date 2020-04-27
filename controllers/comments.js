@@ -9,9 +9,11 @@ var express = require("express"),
 //router.get("/getReviews", [auth], function(req, res) {
 router.get("/getReviews", function (req, res) {
   // Connect to the db
-  const client = new MongoClient(mongodb, { useNewUrlParser: true });
+
+  const client = new MongoClient(mongodb);
+  console.log("clientclientclientclient", client);
   client.connect((err) => {
-    const collection = client
+    const db = client
       .db("test")
       .collection("Reviews", function (err, collection) {
         collection.find().toArray(function (err, items) {
@@ -25,16 +27,6 @@ router.get("/getReviews", function (req, res) {
 });
 
 router.get("/insertReviews", function (req, res) {
-  // Connect to the db
-  //console.log("1", mongodb);
-
-  //let mongodb2 = process.env.mongodb;
-
-  console.log("2", mongodb);
-  //console.log("3", mongodb2);
-
-  // const uri =
-  // "mongodb+srv://tanu:<password>@smartconnectdb-pjlax.mongodb.net/test?retryWrites=true&w=majority";
   const client = new MongoClient(mongodb, { useNewUrlParser: true });
   client.connect((err) => {
     const collection = client

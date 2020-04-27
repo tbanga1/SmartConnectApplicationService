@@ -77,7 +77,7 @@ router.get("/insertReviews", function (req, res) {
 router.put("/saveServiceRequest", [auth], function (req, res) {
   console.log("storing request", req.body);
   MongoClient.connect(mongodb, function (err, client) {
-    var db = client.db("mydb");
+    var db = client.db("SC");
     db.collection("ServiceRequests", function (err, collection) {
       collection.insertOne({
         appliance: req.body.appliance,
@@ -96,7 +96,7 @@ router.put("/saveServiceRequest", [auth], function (req, res) {
 router.put("/editServiceRequest", [auth], function (req, res) {
   console.log("storing request", req.body);
   MongoClient.connect(mongodb, function (err, client) {
-    var db = client.db("mydb");
+    var db = client.db("SC");
     db.collection("ServiceRequests", function (err, collection) {
       collection.update(
         { _id: ObjectId(req.body._id) },
@@ -119,7 +119,7 @@ router.put("/editServiceRequest", [auth], function (req, res) {
 router.get("/schedule/history", [auth], function (req, res) {
   console.log("req.body._userId:: fetched from middleware/auth ", req.user._id);
   MongoClient.connect(mongodb, function (err, client) {
-    var db = client.db("mydb");
+    var db = client.db("SC");
     var collectionObj = db.collection("ServiceRequests");
     console.log("collectionObj ", collectionObj);
     collectionObj
@@ -142,7 +142,7 @@ router.delete("/schedule/delete/:_id", [auth], function (req, res) {
     req.params._id
   );
   MongoClient.connect(mongodb, function (err, client) {
-    var db = client.db("mydb");
+    var db = client.db("SC");
     db.collection("ServiceRequests", function (err, collection) {
       collection.remove({ _id: ObjectId(req.params._id) });
     });

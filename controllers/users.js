@@ -5,7 +5,7 @@ const { User, validate } = require("../models/user");
 const express = require("express");
 const router = express.Router();
 var MongoClient = require("mongodb").MongoClient;
-const { mongodb } = require("../config/default.json");
+const mongodb = process.env.smartConnect_db;
 
 //registration
 router.post("/", async (req, res) => {
@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
   //await user.save();
   console.log(" user.password ", user.password);
   MongoClient.connect(mongodb, function (err, client) {
-    var db = client.db("mydb");
+    var db = client.db("SC");
     var collectionObj = db.collection("Users");
     collectionObj.findOne({ email: user.email }, function (err, userObj) {
       if (err) throw err;
@@ -47,7 +47,7 @@ router.post("/auth", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   MongoClient.connect(mongodb, async function (err, client) {
-    var db = client.db("mydb");
+    var db = client.db("SC");
     var collectionObj = db.collection("Users");
     collectionObj.findOne({ email: req.body.email }, async function (
       err,
@@ -101,7 +101,7 @@ router.post("/", async (req, res) => {
   //await user.save();
   console.log(" user.password ", user.password);
   MongoClient.connect(mongodb, function (err, client) {
-    var db = client.db("mydb");
+    var db = client.db("SC");
     var collectionObj = db.collection("Users");
     collectionObj.findOne({ email: user.email }, function (err, userObj) {
       if (err) throw err;

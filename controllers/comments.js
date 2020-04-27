@@ -28,6 +28,8 @@ router.get("/getReviews", function (req, res) {
 
 router.get("/insertReviews", function (req, res) {
   const client = new MongoClient(mongodb, { useNewUrlParser: true });
+  console.log("clientclientclientclient", client);
+
   client.connect((err) => {
     const collection = client
       .db("SC")

@@ -52,6 +52,7 @@ router.get("/insertReviews", function (req, res) {
         });
       });
   });
+  client.close();
 
   /* client.connect((err) => {
     const collection = client

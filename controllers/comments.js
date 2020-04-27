@@ -40,8 +40,11 @@ router.get("/insertReviews", function (req, res) {
   client.connect((err) => {
     console.log("connected", client);
 
-    const collection = client.db("SC");
-    console.log("collection", collection);
+    const collection = client
+      .db("SC")
+      .collection("Reviews", function (err, collection) {
+        console.log("collection", collection);
+      });
   });
 
   /* client.connect((err) => {
